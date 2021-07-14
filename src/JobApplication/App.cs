@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace JobApplication
+﻿namespace JobApplication
 {
     public class App
     {
