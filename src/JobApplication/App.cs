@@ -2,7 +2,7 @@
 
 namespace JobApplication
 {
-    public class Class1
+    public class App
     {
     }
 }

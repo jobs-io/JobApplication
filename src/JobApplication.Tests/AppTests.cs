@@ -10,9 +10,9 @@ namespace JobApplication.Tests
         }
 
         [Test]
-        public void Test1()
+        public void GetJobApplication()
         {
-            Assert.Pass();
+            new App();
         }
     }
 }
