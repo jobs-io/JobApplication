@@ -1,3 +1,5 @@
+using JobApplication.Data;
+using Moq;
 using NUnit.Framework;
 
 namespace JobApplication.Tests
@@ -12,7 +14,14 @@ namespace JobApplication.Tests
         [Test]
         public void GetJobApplication()
         {
-            new App();
+            var dataStoreMock = new Mock<IDataStore>();
+            var jobApplication = new Data.JobApplication();
+            dataStoreMock.Setup(x => x.GetJobApplication()).Returns(jobApplication);
+            
+            var app = new App(dataStoreMock.Object);
+
+            Assert.AreEqual(jobApplication, app.GetJobApplication());
+            dataStoreMock.Verify(x => x.GetJobApplication());
         }
     }
 }
