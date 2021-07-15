@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace JobApplication.Data
 {
     public interface IDataStore
     {
-         JobApplication GetJobApplication();
+         IDictionary<string, string> GetJobApplication();
     }
 }

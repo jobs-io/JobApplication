@@ -9,7 +9,8 @@ namespace JobApplication {
         }
 
         public Data.JobApplication GetJobApplication() {
-            return this.dataStore.GetJobApplication();
+            var data = this.dataStore.GetJobApplication();
+            return new Data.JobApplication();
         }
     }
 }
