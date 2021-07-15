@@ -1,7 +1,15 @@
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
 namespace JobApplication.Data
 {
     public class JobApplication
     {
-        public string CoverLetter;
+        public readonly string CoverLetter;
+
+        public JobApplication(string data)
+        {
+            this.CoverLetter = JsonConvert.DeserializeObject<IDictionary<string, string>>(data)["cover-letter"];
+        }
     }
 }

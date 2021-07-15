@@ -16,13 +16,16 @@ namespace JobApplication.Tests
         public void GetJobApplication()
         {
             var dataStoreMock = new Mock<IDataStore>();
-            var jobApplication = new Dictionary<string, string>() { { "source", "{\"cover-letter\": \"Sample cover letter...\"}" }};
+            var key = "source";
+            var coverLetter = "Sample cover letter...";
+            var value = $"{{\"cover-letter\": \"{coverLetter}\"}}";
+            var jobApplication = new Dictionary<string, string>() { { key, value }};
             
             dataStoreMock.Setup(x => x.GetJobApplication()).Returns(jobApplication);
             
-            var app = new App(dataStoreMock.Object);
+            var app = new App(key, dataStoreMock.Object);
 
-            Assert.AreEqual(new Data.JobApplication().CoverLetter, app.GetJobApplication().CoverLetter);
+            Assert.AreEqual(coverLetter, app.GetJobApplication().CoverLetter);
             dataStoreMock.Verify(x => x.GetJobApplication());
         }
     }
