@@ -19,10 +19,10 @@ namespace JobApplication.Tests
             var key = "source";
             var coverLetter = "Sample cover letter...";
             var cv = "these are my details...";
+            var jobDescription = "some details describing the job";
             var jobTitle = "job title";
-            var jobDetail = $"\"job-detail\": {{\"title\": \"{jobTitle}\"}}";
+            var jobDetail = $"\"job-detail\": {{\"title\": \"{jobTitle}\", \"description\": \"{jobDescription}\"}}";
             var value = $"{{\"cover-letter\": \"{coverLetter}\", \"cv\": \"{cv}\", {jobDetail}}}";
-            System.Console.WriteLine(value);
             var jobApplication = new Dictionary<string, string>() { { key, value }};
             
             dataStoreMock.Setup(x => x.GetJobApplication()).Returns(jobApplication);
@@ -33,6 +33,7 @@ namespace JobApplication.Tests
             Assert.AreEqual(coverLetter, actualJobApplication.CoverLetter);
             Assert.AreEqual(cv, actualJobApplication.Cv);
             Assert.AreEqual(jobTitle, actualJobApplication.JobDetail.Title);
+            Assert.AreEqual(jobDescription, actualJobApplication.JobDetail.Description);
             dataStoreMock.Verify(x => x.GetJobApplication());
         }
     }

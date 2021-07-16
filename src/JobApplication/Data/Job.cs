@@ -13,6 +13,7 @@ namespace JobApplication.Data
         public Job(JToken json)
         {
             this.Title = json["title"].ToString();
+            this.Description = json["description"].ToString();
         }
     }
 }
