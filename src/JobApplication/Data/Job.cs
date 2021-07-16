@@ -15,6 +15,7 @@ namespace JobApplication.Data
             this.Title = json["title"].ToString();
             this.Description = json["description"].ToString();
             this.Company = json["company"].ToString();
+            this.DatePosted = DateTime.Parse(json["date-posted"].ToString());
         }
     }
 }

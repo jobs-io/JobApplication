@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JobApplication.Data;
 using Moq;
@@ -22,7 +23,8 @@ namespace JobApplication.Tests
             var jobDescription = "some details describing the job";
             var jobTitle = "job title";
             var company = "advertiser";
-            var jobDetail = $"\"job-detail\": {{\"title\": \"{jobTitle}\", \"description\": \"{jobDescription}\", \"company\": \"{company}\"}}";
+            var datePosted = DateTime.Parse("2019-07-26T00:00:00");
+            var jobDetail = $"\"job-detail\": {{\"title\": \"{jobTitle}\", \"description\": \"{jobDescription}\", \"company\": \"{company}\", \"date-posted\": \"{datePosted}\" }}";
             var value = $"{{\"cover-letter\": \"{coverLetter}\", \"cv\": \"{cv}\", {jobDetail}}}";
             var jobApplication = new Dictionary<string, string>() { { key, value }};
             
@@ -36,6 +38,7 @@ namespace JobApplication.Tests
             Assert.AreEqual(jobTitle, actualJobApplication.JobDetail.Title);
             Assert.AreEqual(jobDescription, actualJobApplication.JobDetail.Description);
             Assert.AreEqual(company, actualJobApplication.JobDetail.Company);
+            Assert.AreEqual(datePosted, actualJobApplication.JobDetail.DatePosted);
             dataStoreMock.Verify(x => x.GetJobApplication());
         }
     }
