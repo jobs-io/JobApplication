@@ -5,7 +5,7 @@
 ```json
 {
     "cv": "",
-    "coverLetter": "",
+    "cover-letter": "",
     "jobDetail": {
         "source": "",
         "title": "",
