@@ -32,7 +32,7 @@ namespace JobApplication.Tests
             var actualJobApplication = app.GetJobApplication();
             Assert.AreEqual(coverLetter, actualJobApplication.CoverLetter);
             Assert.AreEqual(cv, actualJobApplication.Cv);
-            // Assert.AreEqual(jobTitle, actualJobApplication.JobDetail.Title);
+            Assert.AreEqual(jobTitle, actualJobApplication.JobDetail.Title);
             dataStoreMock.Verify(x => x.GetJobApplication());
         }
     }

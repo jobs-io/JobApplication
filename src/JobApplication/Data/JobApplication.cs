@@ -14,6 +14,7 @@ namespace JobApplication.Data
             var json = JObject.Parse(data);
             this.CoverLetter = json["cover-letter"].ToString();
             this.Cv = json["cv"].ToString();
+            this.JobDetail = new Job(json["job-detail"]);
         }
     }
 }
