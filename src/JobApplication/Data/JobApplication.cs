@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace JobApplication.Data
 {
@@ -7,11 +7,13 @@ namespace JobApplication.Data
     {
         public readonly string CoverLetter;
         public readonly string Cv;
+        public readonly Job JobDetail;
 
         public JobApplication(string data)
         {
-            this.CoverLetter = JsonConvert.DeserializeObject<IDictionary<string, string>>(data)["cover-letter"];
-            this.Cv = JsonConvert.DeserializeObject<IDictionary<string, string>>(data)["cv"];
+            var json = JObject.Parse(data);
+            this.CoverLetter = json["cover-letter"].ToString();
+            this.Cv = json["cv"].ToString();
         }
     }
 }
