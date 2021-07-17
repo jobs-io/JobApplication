@@ -36,14 +36,14 @@ namespace JobApplication.Tests
             dataStoreMock.Setup(x => x.GetJobApplication()).Returns(new Dictionary<string, string>() { { source, value }});
             var app = new App(source, dataStoreMock.Object);
 
-            var actualJobApplication = app.GetJobApplication();
+            var result = app.GetJobApplication();
 
-            Assert.AreEqual(expected.coverLetter, actualJobApplication.CoverLetter);
-            Assert.AreEqual(expected.cv, actualJobApplication.Cv);
-            Assert.AreEqual(expected.jobDetail.title, actualJobApplication.JobDetail.Title);
-            Assert.AreEqual(expected.jobDetail.description, actualJobApplication.JobDetail.Description);
-            Assert.AreEqual(expected.jobDetail.company, actualJobApplication.JobDetail.Company);
-            Assert.AreEqual(expected.jobDetail.datePosted, actualJobApplication.JobDetail.DatePosted);
+            Assert.AreEqual(expected.coverLetter, result.CoverLetter);
+            Assert.AreEqual(expected.cv, result.Cv);
+            Assert.AreEqual(expected.jobDetail.title, result.JobDetail.Title);
+            Assert.AreEqual(expected.jobDetail.description, result.JobDetail.Description);
+            Assert.AreEqual(expected.jobDetail.company, result.JobDetail.Company);
+            Assert.AreEqual(expected.jobDetail.datePosted, result.JobDetail.DatePosted);
             dataStoreMock.Verify(x => x.GetJobApplication());
         }
 
