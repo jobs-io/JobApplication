@@ -21,26 +21,30 @@ namespace JobApplication.Tests
         [Test]
         public void ShouldGetJobApplication()
         {
-            var coverLetter = "Sample cover letter...";
-            var cv = "these are my details...";
-            var jobDescription = "some details describing the job";
-            var jobTitle = "job title";
-            var company = "advertiser";
-            var datePosted = DateTime.Parse("2019-07-26T00:00:00");
-            var jobDetail = $"\"job-detail\": {{\"title\": \"{jobTitle}\", \"description\": \"{jobDescription}\", \"company\": \"{company}\", \"date-posted\": \"{datePosted}\" }}";
-            var value = $"{{\"cover-letter\": \"{coverLetter}\", \"cv\": \"{cv}\", {jobDetail}}}";
+            var expected = new {
+                coverLetter = "Sample cover letter...",
+                cv = "these are my details...",
+                jobDetail = new {
+                    title = "job title",
+                    description = "some details describing the job",
+                    company = "advertiser",
+                    datePosted = DateTime.Parse("2019-07-26T00:00:00")
+                }
+            };
+            var jobDetail = $"\"job-detail\": {{\"title\": \"{expected.jobDetail.title}\", \"description\": \"{expected.jobDetail.description}\", \"company\": \"{expected.jobDetail.company}\", \"date-posted\": \"{expected.jobDetail.datePosted}\" }}";
+            var value = $"{{\"cover-letter\": \"{expected.coverLetter}\", \"cv\": \"{expected.cv}\", {jobDetail}}}";
             var jobApplication = new Dictionary<string, string>() { { source, value }};            
             dataStoreMock.Setup(x => x.GetJobApplication()).Returns(jobApplication);
             var app = new App(source, dataStoreMock.Object);
 
             var actualJobApplication = app.GetJobApplication();
 
-            Assert.AreEqual(coverLetter, actualJobApplication.CoverLetter);
-            Assert.AreEqual(cv, actualJobApplication.Cv);
-            Assert.AreEqual(jobTitle, actualJobApplication.JobDetail.Title);
-            Assert.AreEqual(jobDescription, actualJobApplication.JobDetail.Description);
-            Assert.AreEqual(company, actualJobApplication.JobDetail.Company);
-            Assert.AreEqual(datePosted, actualJobApplication.JobDetail.DatePosted);
+            Assert.AreEqual(expected.coverLetter, actualJobApplication.CoverLetter);
+            Assert.AreEqual(expected.cv, actualJobApplication.Cv);
+            Assert.AreEqual(expected.jobDetail.title, actualJobApplication.JobDetail.Title);
+            Assert.AreEqual(expected.jobDetail.description, actualJobApplication.JobDetail.Description);
+            Assert.AreEqual(expected.jobDetail.company, actualJobApplication.JobDetail.Company);
+            Assert.AreEqual(expected.jobDetail.datePosted, actualJobApplication.JobDetail.DatePosted);
             dataStoreMock.Verify(x => x.GetJobApplication());
         }
 
