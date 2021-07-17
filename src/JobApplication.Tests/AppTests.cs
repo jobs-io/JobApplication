@@ -33,8 +33,7 @@ namespace JobApplication.Tests
             };
             var jobDetail = $"\"job-detail\": {{\"title\": \"{expected.jobDetail.title}\", \"description\": \"{expected.jobDetail.description}\", \"company\": \"{expected.jobDetail.company}\", \"date-posted\": \"{expected.jobDetail.datePosted}\" }}";
             var value = $"{{\"cover-letter\": \"{expected.coverLetter}\", \"cv\": \"{expected.cv}\", {jobDetail}}}";
-            var jobApplication = new Dictionary<string, string>() { { source, value }};            
-            dataStoreMock.Setup(x => x.GetJobApplication()).Returns(jobApplication);
+            dataStoreMock.Setup(x => x.GetJobApplication()).Returns(new Dictionary<string, string>() { { source, value }});
             var app = new App(source, dataStoreMock.Object);
 
             var actualJobApplication = app.GetJobApplication();
