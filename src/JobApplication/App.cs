@@ -1,4 +1,6 @@
 ﻿using JobApplication.Data;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace JobApplication {
     public class App {
@@ -9,9 +11,13 @@ namespace JobApplication {
             this.dataStore = dataStore;
         }
 
-        public Data.JobApplication GetJobApplication () {
+        public Data.JobApplication GetJobApplication() {
             var data = this.dataStore.GetJobApplication ();
             return new Data.JobApplication (data[this.source]);
+        }
+
+        public void CreateJobApplication(string jobDetail) {
+            this.dataStore.CreateJobApplication(this.source, JsonConvert.DeserializeObject<IDictionary<string, string>>(jobDetail));
         }
     }
 }

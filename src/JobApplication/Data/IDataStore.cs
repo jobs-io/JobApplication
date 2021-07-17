@@ -5,5 +5,6 @@ namespace JobApplication.Data
     public interface IDataStore
     {
          IDictionary<string, string> GetJobApplication();
+         void CreateJobApplication(string source, IDictionary<string, string> job);
     }
 }
