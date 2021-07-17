@@ -12,8 +12,8 @@ namespace JobApplication.Data
         public JobApplication(string data)
         {
             var json = JObject.Parse(data);
-            this.CoverLetter = json["cover-letter"].ToString();
-            this.Cv = json["cv"].ToString();
+            if(json["cover-letter"] != null) this.CoverLetter = json["cover-letter"].ToString();
+            if(json["cv"] != null) this.Cv = json["cv"].ToString();
             this.JobDetail = new Job(json["job-detail"]);
         }
     }

@@ -48,6 +48,30 @@ namespace JobApplication.Tests
         }
 
         [Test]
+        public void ShouldGetJobApplicationThatHasJustBeenCreated()
+        {
+            var expected = new {
+                jobDetail = new {
+                    title = "job title",
+                    description = "some details describing the job",
+                    company = "advertiser",
+                    datePosted = DateTime.Parse("2019-07-26T00:00:00")
+                }
+            };
+            var jobDetail = $"{{\"job-detail\": {{\"title\": \"{expected.jobDetail.title}\", \"description\": \"{expected.jobDetail.description}\", \"company\": \"{expected.jobDetail.company}\", \"date-posted\": \"{expected.jobDetail.datePosted}\" }}}}";
+            dataStoreMock.Setup(x => x.GetJobApplication()).Returns(new Dictionary<string, string>() { { source, jobDetail }});
+            var app = new App(source, dataStoreMock.Object);
+
+            var result = app.GetJobApplication();
+
+            Assert.AreEqual(expected.jobDetail.title, result.JobDetail.Title);
+            Assert.AreEqual(expected.jobDetail.description, result.JobDetail.Description);
+            Assert.AreEqual(expected.jobDetail.company, result.JobDetail.Company);
+            Assert.AreEqual(expected.jobDetail.datePosted, result.JobDetail.DatePosted);
+            dataStoreMock.Verify(x => x.GetJobApplication());
+        }
+
+        [Test]
         public void ShouldCreateJobApplication() {
             var data = new {
                 jobTitle = "job title", 
