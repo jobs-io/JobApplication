@@ -63,5 +63,16 @@ namespace JobApplication.Tests
 
             dataStoreMock.Verify(x => x.CreateJobApplication(source, job));
         }
+
+        [Test]
+        public void ShouldCheckIfJobApplicationExists() {
+            dataStoreMock.Setup(x => x.Exists(source)).Returns(true);
+            var app = new App(source, dataStoreMock.Object);
+
+            var exists = app.JobApplicationExists();
+
+            dataStoreMock.Verify(x => x.Exists(source));
+            Assert.IsTrue(exists);
+        }
     }
 }

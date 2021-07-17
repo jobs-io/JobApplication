@@ -19,5 +19,9 @@ namespace JobApplication {
         public void CreateJobApplication(string jobDetail) {
             this.dataStore.CreateJobApplication(this.source, JsonConvert.DeserializeObject<IDictionary<string, string>>(jobDetail));
         }
+
+        public bool JobApplicationExists() {
+            return this.dataStore.Exists(source);
+        }
     }
 }
