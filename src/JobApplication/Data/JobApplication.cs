@@ -9,6 +9,8 @@ namespace JobApplication.Data
         public readonly string Cv;
         public readonly Job JobDetail;
 
+        public readonly Note[] Notes;
+
         public JobApplication(string data)
         {
             var json = JObject.Parse(data);
