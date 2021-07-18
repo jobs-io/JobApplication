@@ -29,10 +29,23 @@ namespace JobApplication.Tests
                     description = "some details describing the job",
                     company = "advertiser",
                     datePosted = DateTime.Parse("2019-07-26T00:00:00")
+                },
+                notes = new [] {
+                    new {description = "a note", datePosted = "2019-07-26T00:00:00"}
                 }
             };
+
+            var notesAsJson = "";
+            foreach(var note in expected.notes) {
+                if(notesAsJson == "") {
+                    notesAsJson += $"{{\"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
+                } else {
+                    notesAsJson += $", {{\"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
+                }
+            }
+            var notes = $"\"notes\": [{notesAsJson}]";
             var jobDetail = $"\"job-detail\": {{\"title\": \"{expected.jobDetail.title}\", \"description\": \"{expected.jobDetail.description}\", \"company\": \"{expected.jobDetail.company}\", \"date-posted\": \"{expected.jobDetail.datePosted}\" }}";
-            var value = $"{{\"cover-letter\": \"{expected.coverLetter}\", \"cv\": \"{expected.cv}\", {jobDetail}}}";
+            var value = $"{{\"cover-letter\": \"{expected.coverLetter}\", \"cv\": \"{expected.cv}\", {jobDetail}, {notes}}}";
             dataStoreMock.Setup(x => x.GetJobApplication()).Returns(new Dictionary<string, string>() { { source, value }});
             var app = new App(source, dataStoreMock.Object);
 
@@ -44,6 +57,8 @@ namespace JobApplication.Tests
             Assert.AreEqual(expected.jobDetail.description, result.JobDetail.Description);
             Assert.AreEqual(expected.jobDetail.company, result.JobDetail.Company);
             Assert.AreEqual(expected.jobDetail.datePosted, result.JobDetail.DatePosted);
+            Assert.AreEqual(expected.notes[0].description, result.Notes[0].Description);
+            Assert.AreEqual(DateTime.Parse(expected.notes[0].datePosted), result.Notes[0].DatePosted);
             dataStoreMock.Verify(x => x.GetJobApplication());
         }
 

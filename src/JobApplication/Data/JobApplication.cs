@@ -8,8 +8,7 @@ namespace JobApplication.Data
         public readonly string CoverLetter;
         public readonly string Cv;
         public readonly Job JobDetail;
-
-        public readonly Note[] Notes;
+        public readonly Notes Notes;
 
         public JobApplication(string data)
         {
@@ -17,6 +16,7 @@ namespace JobApplication.Data
             if(json["cover-letter"] != null) this.CoverLetter = json["cover-letter"].ToString();
             if(json["cv"] != null) this.Cv = json["cv"].ToString();
             this.JobDetail = new Job(json["job-detail"]);
+            if (json["notes"] != null) this.Notes = new Notes(json["notes"]);
         }
     }
 }
