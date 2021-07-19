@@ -28,8 +28,8 @@ namespace JobApplication {
             this.dataStore.UpdateCv(source, cv);
         }
 
-        public void UpdateCoverLetter(string coverLetter) {
-            this.dataStore.UpdateCoverLetter(source, coverLetter);
+        public void UpdateItem<T>(string key, T data) {
+            this.dataStore.Update<T>(source, key, data);
         }
     }
 }

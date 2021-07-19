@@ -131,12 +131,12 @@ namespace JobApplication.Tests
         [Test]
         public void ShouldUpdateCoverLetter() {
             var data = "these are some details";
-            dataStoreMock.Setup(x => x.UpdateCoverLetter(source, data));
+            dataStoreMock.Setup(x => x.Update<string>(source, "cover-letter", data));
             var app = new App(source, dataStoreMock.Object);
 
-            app.UpdateCoverLetter(data);
+            app.UpdateItem<string>("cover-letter", data);
 
-            dataStoreMock.Verify(x => x.UpdateCoverLetter(source, data));
+            dataStoreMock.Verify(x => x.Update<string>(source, "cover-letter", data));
         }
     }
 }

@@ -10,5 +10,6 @@ namespace JobApplication.Data
 
         void UpdateCv(string source, string cv);
         void UpdateCoverLetter(string source, string coverLetter);
+        void Update<T>(string source, string key, T data);
     }
 }
