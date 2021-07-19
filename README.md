@@ -24,3 +24,10 @@ public class JobApplication {
     public Note[] Notes { get; set; }
 }
 ```
+
+## What it does?
+
+* Display job details
+* Display / make notes
+* Display / edit cover letter
+* Display / edit CV
