@@ -128,15 +128,15 @@ namespace JobApplication.Tests
             dataStoreMock.Verify(x => x.UpdateCv(source, data));
         }
 
-        [Test]
-        public void ShouldUpdateCoverLetter() {
-            var data = "these are some details";
-            dataStoreMock.Setup(x => x.Update<string>(source, "cover-letter", data));
+        [TestCase("cover-letter", "these are some details")]
+        [TestCase("cv", "these are some details")]
+        public void ShouldUpdateItem(string key, string data) {
+            dataStoreMock.Setup(x => x.Update<string>(source, key, data));
             var app = new App(source, dataStoreMock.Object);
 
-            app.UpdateItem<string>("cover-letter", data);
+            app.UpdateItem<string>(key, data);
 
-            dataStoreMock.Verify(x => x.Update<string>(source, "cover-letter", data));
+            dataStoreMock.Verify(x => x.Update<string>(source, key, data));
         }
     }
 }
