@@ -4,6 +4,7 @@ using JobApplication.Data;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using Newtonsoft.Json.Linq;
 
 namespace JobApplication.Tests
 {
@@ -126,6 +127,32 @@ namespace JobApplication.Tests
             app.UpdateItem<string>(key, data);
 
             dataStoreMock.Verify(x => x.Update<string>(source, key, data));
+        }
+
+        [Test]
+        public void ShouldUpdateNotes() {
+            var key = "notes";
+            var expected = new {
+                notes = new [] {
+                    new {description = "a note", datePosted = "2019-07-26T00:00:00"}
+                }
+            };
+            var notesAsJson = "";
+            foreach(var note in expected.notes) {
+                if(notesAsJson == "") {
+                    notesAsJson += $"{{\"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
+                } else {
+                    notesAsJson += $", {{\"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
+                }
+            }
+            var notes = $"{{\"{key}\": [{notesAsJson}]}}";
+            var savedNotes = new Notes(JObject.Parse(notes)["notes"]);
+            dataStoreMock.Setup(x => x.Update<Notes>(source, key, savedNotes));
+            var app = new App(source, dataStoreMock.Object);
+
+            app.UpdateItem<Notes>(key, savedNotes);
+
+            dataStoreMock.Verify(x => x.Update<Notes>(source, key, savedNotes));            
         }
     }
 }
