@@ -23,5 +23,9 @@ namespace JobApplication {
         public bool JobApplicationExists() {
             return this.dataStore.Exists(source);
         }
+
+        public void UpdateCv(string cv) {
+            this.dataStore.UpdateCv(source, cv);
+        }
     }
 }

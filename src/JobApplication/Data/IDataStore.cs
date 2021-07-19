@@ -7,5 +7,7 @@ namespace JobApplication.Data
          IDictionary<string, string> GetJobApplication();
          void CreateJobApplication(string source, IDictionary<string, string> job);
          bool Exists(string source);
+
+         void UpdateCv(string source, string cv);
     }
 }

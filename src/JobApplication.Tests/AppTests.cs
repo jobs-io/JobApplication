@@ -116,5 +116,16 @@ namespace JobApplication.Tests
             dataStoreMock.Verify(x => x.Exists(source));
             Assert.IsTrue(exists);
         }
+
+[Test]
+        public void ShouldUpdateCv() {
+            var data = "these are some details";
+            dataStoreMock.Setup(x => x.UpdateCv(source, data));
+            var app = new App(source, dataStoreMock.Object);
+
+            app.UpdateCv(data);
+
+            dataStoreMock.Verify(x => x.UpdateCv(source, data));
+        }
     }
 }
