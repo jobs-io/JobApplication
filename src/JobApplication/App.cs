@@ -24,10 +24,6 @@ namespace JobApplication {
             return this.dataStore.Exists(source);
         }
 
-        public void UpdateCv(string cv) {
-            this.dataStore.UpdateCv(source, cv);
-        }
-
         public void UpdateItem<T>(string key, T data) {
             this.dataStore.Update<T>(source, key, data);
         }
