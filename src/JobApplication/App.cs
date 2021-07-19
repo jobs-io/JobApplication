@@ -27,5 +27,9 @@ namespace JobApplication {
         public void UpdateCv(string cv) {
             this.dataStore.UpdateCv(source, cv);
         }
+
+        public void UpdateCoverLetter(string coverLetter) {
+            this.dataStore.UpdateCoverLetter(source, coverLetter);
+        }
     }
 }

@@ -127,5 +127,16 @@ namespace JobApplication.Tests
 
             dataStoreMock.Verify(x => x.UpdateCv(source, data));
         }
+
+        [Test]
+        public void ShouldUpdateCoverLetter() {
+            var data = "these are some details";
+            dataStoreMock.Setup(x => x.UpdateCoverLetter(source, data));
+            var app = new App(source, dataStoreMock.Object);
+
+            app.UpdateCoverLetter(data);
+
+            dataStoreMock.Verify(x => x.UpdateCoverLetter(source, data));
+        }
     }
 }
