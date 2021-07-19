@@ -117,7 +117,7 @@ namespace JobApplication.Tests
             Assert.IsTrue(exists);
         }
 
-[Test]
+        [Test]
         public void ShouldUpdateCv() {
             var data = "these are some details";
             dataStoreMock.Setup(x => x.UpdateCv(source, data));
