@@ -32,16 +32,16 @@ namespace JobApplication.Tests
                     datePosted = DateTime.Parse("2019-07-26T00:00:00")
                 },
                 notes = new [] {
-                    new {description = "a note", datePosted = "2019-07-26T00:00:00"}
+                    new {title = "a note", description = "a note", datePosted = "2019-07-26T00:00:00"}
                 }
             };
 
             var notesAsJson = "";
             foreach(var note in expected.notes) {
                 if(notesAsJson == "") {
-                    notesAsJson += $"{{\"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
+                    notesAsJson += $"{{\"title\": \"{note.title}\", \"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
                 } else {
-                    notesAsJson += $", {{\"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
+                    notesAsJson += $", {{\"title\": \"{note.title}\", \"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
                 }
             }
             var notes = $"\"notes\": [{notesAsJson}]";
@@ -60,6 +60,7 @@ namespace JobApplication.Tests
             Assert.AreEqual(expected.jobDetail.datePosted, result.JobDetail.DatePosted);
             Assert.AreEqual(expected.notes[0].description, result.Notes[0].Description);
             Assert.AreEqual(DateTime.Parse(expected.notes[0].datePosted), result.Notes[0].DatePosted);
+            Assert.AreEqual(expected.notes[0].title, result.Notes[0].Title);
             dataStoreMock.Verify(x => x.GetJobApplication());
         }
 
@@ -134,15 +135,15 @@ namespace JobApplication.Tests
             var key = "notes";
             var expected = new {
                 notes = new [] {
-                    new {description = "a note", datePosted = "2019-07-26T00:00:00"}
+                    new {title = "a note", description = "a note", datePosted = "2019-07-26T00:00:00"}
                 }
             };
             var notesAsJson = "";
             foreach(var note in expected.notes) {
                 if(notesAsJson == "") {
-                    notesAsJson += $"{{\"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
+                    notesAsJson += $"{{\"title\": \"{note.title}\", \"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
                 } else {
-                    notesAsJson += $", {{\"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
+                    notesAsJson += $", {{\"title\": \"{note.title}\", \"description\": \"{note.description}\", \"date-posted\": \"{note.datePosted}\"}}";
                 }
             }
             var notes = $"{{\"{key}\": [{notesAsJson}]}}";
